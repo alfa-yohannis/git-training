@@ -1,0 +1,37 @@
+\chapter{Menggunakan Git dengan GitHub}
+
+\section{Membuat Repository Private/Public}
+GitHub memungkinkan pembuatan repository baik private maupun public untuk mengelola proyek. Berikut adalah langkah-langkah untuk membuat repository di GitHub:
+\begin{enumerate}
+	\item Masuk ke akun GitHub dan klik tombol \texttt{New Repository} di halaman utama atau navigasi profil.
+	\item Berikan nama repository dan deskripsi opsional.
+	\item Pilih apakah repository tersebut akan bersifat \texttt{Public} (dapat diakses oleh siapa saja) atau \texttt{Private} (hanya bisa diakses oleh pemilik dan kolaborator yang diizinkan).
+	\item Pilih apakah ingin menambahkan file \texttt{README.md}, \texttt{.gitignore}, atau lisensi.
+	\item Klik \texttt{Create repository}.
+\end{enumerate}
+
+Setelah repository dibuat, URL Git untuk repository tersebut akan diperoleh, yang dapat digunakan sebagai remote di proyek lokal.
+
+\section{Menambahkan Remote dan Push Perubahan}
+Setelah repository di GitHub dibuat, langkah selanjutnya adalah menambahkan repository tersebut sebagai \textit{remote} di proyek Git lokal. Berikut langkah-langkahnya:
+
+\subsection{Menambahkan Remote}
+Untuk menambahkan remote ke repository lokal, gunakan perintah \texttt{git remote add} dengan URL GitHub dari repository.
+\begin{lstlisting}[language=bash]
+	git remote add origin https://github.com/username/nama-repo.git
+\end{lstlisting}
+Pada perintah ini, \texttt{origin} adalah nama default untuk remote repository utama. Nama lain dapat digunakan jika diinginkan.
+
+\subsection{Push Perubahan ke Remote}
+Setelah remote ditambahkan, perubahan dari repository lokal dapat dikirim ke repository di GitHub menggunakan perintah \texttt{git push}.
+\begin{lstlisting}[language=bash]
+	git push -u origin main
+\end{lstlisting}
+Perintah ini akan mengirim semua commit di cabang \texttt{main} ke remote \texttt{origin} (GitHub). Opsi \texttt{-u} digunakan untuk mengatur \texttt{main} sebagai cabang default untuk operasi \texttt{push} berikutnya.
+
+\subsection{Sinkronisasi Perubahan}
+Untuk menarik (pull) perubahan dari repository remote ke lokal, gunakan perintah:
+\begin{lstlisting}[language=bash]
+	git pull origin main
+\end{lstlisting}
+Perintah ini memastikan repository lokal tetap sinkron dengan repository GitHub.

@@ -1,0 +1,616 @@
+\chapter{Latihan Resolusi Conflict}
+
+\section{Menginstal Git di Linux}
+\begin{itemize}
+	\item Pada distribusi berbasis Debian seperti Ubuntu, jalankan: \texttt{sudo apt-get install git}.
+	\begin{lstlisting}[language=bash]
+		sudo apt-get install git
+	\end{lstlisting}
+	\item Verifikasi instalasi dengan \texttt{git --version}.
+	\begin{lstlisting}[language=bash]
+		git --version
+	\end{lstlisting}
+\end{itemize}
+
+\section{Registrasi ke GitHub}
+
+Untuk menggunakan GitHub, langkah pertama adalah mendaftar untuk akun. Berikut adalah langkah-langkah untuk mendaftar ke GitHub:
+
+\begin{enumerate}
+	\item Buka situs web GitHub di \texttt{https://github.com}.
+	\item Klik tombol \texttt{Sign up} di pojok kanan atas halaman.
+	\item Masukkan informasi yang diperlukan, termasuk alamat email, username, dan password.
+	\item Pilih paket yang diinginkan, bisa memilih antara \texttt{Free} atau berlangganan untuk opsi yang lebih banyak.
+	\item Klik \texttt{Create account} setelah mengisi informasi.
+	\item Ikuti petunjuk yang diberikan untuk memverifikasi akun melalui email.
+	\item Setelah verifikasi, masuk ke akun GitHub yang baru dibuat.
+\end{enumerate}
+
+\section{Instalasi GitHub CLI di Ubuntu}
+
+GitHub CLI (\texttt{gh}) adalah alat baris perintah yang memungkinkan pengguna untuk berinteraksi dengan GitHub secara langsung dari terminal. Dengan \texttt{gh}, pengguna dapat melakukan berbagai tugas seperti mengelola repositori, mengirim permintaan tarik, dan berinteraksi dengan masalah tanpa perlu menggunakan antarmuka grafis.
+
+\subsection{Langkah 1: Perbarui Daftar Paket}
+Buka terminal dan jalankan perintah berikut untuk memperbarui daftar paket:
+
+\begin{lstlisting}[language=bash]
+	sudo apt update
+\end{lstlisting}
+
+\subsection{Langkah 2: Instal \texttt{gh} Menggunakan Pengelola Paket}
+Install GitHub CLI menggunakan pengelola paket \texttt{apt}:
+
+\begin{lstlisting}[language=bash]
+	sudo apt install gh
+\end{lstlisting}
+
+\subsection{Langkah 3: Verifikasi Instalasi}
+Setelah instalasi selesai, verifikasi bahwa \texttt{gh} terinstal dengan benar dengan memeriksa versinya:
+
+\begin{lstlisting}[language=bash]
+	gh --version
+\end{lstlisting}
+
+\subsection{Opsi: Autentikasi}
+Untuk mulai menggunakan \texttt{gh}, authentikasi dengan akun GitHub pengguna:
+
+\begin{lstlisting}[language=bash]
+	gh auth login
+\end{lstlisting}
+
+Perintah berikut menuntun dalam proses autentikasi, memungkinkan pengguna memilih metode autentikasi yang diinginkan (browser atau token).
+
+\subsection{Metode Alternatif: Instal dari Rilis GitHub}
+Jika menggunakan versi terbaru dari rilis GitHub, ikuti langkah-langkah berikut:
+
+\begin{enumerate}
+	\item \textbf{Unduh Rilis Terbaru}:
+	
+	Kunjungi halaman \textit{GitHub CLI releases} untuk menemukan versi terbaru dan mengunduhnya. Sebagai alternatif, pengguna dapat menggunakan \texttt{wget} atau \texttt{curl}:
+	
+	\begin{lstlisting}[language=bash]
+		wget https://github.com/cli/cli/releases/latest/download/gh_$(lsb_release -cs)_amd64.deb
+	\end{lstlisting}
+	
+	\item \textbf{Instal Paket}:
+	
+	\begin{lstlisting}[language=bash]
+		sudo dpkg -i gh_*.deb
+	\end{lstlisting}
+	
+	\item \textbf{Perbaiki Ketergantungan} (jika diperlukan):
+	
+	Jika Anda mengalami masalah ketergantungan, Anda dapat memperbaikinya dengan menjalankan:
+	
+	\begin{lstlisting}[language=bash]
+		sudo apt install -f
+	\end{lstlisting}
+\end{enumerate}
+
+Setelah mengikuti langkah-langkah ini, \texttt{gh} harus berhasil diinstal di sistem Ubuntu Anda.
+
+\section{Cara Mengunggah Proyek Baru ke GitHub}
+
+\subsection{1. Buat Repository Baru di GitHub}
+\begin{itemize}
+	\item Masuk ke akun GitHub dan klik ikon \texttt{+} di sudut kanan atas, lalu pilih \texttt{New repository}.
+	\item Isi nama repository, deskripsi (opsional), dan pilih apakah repository tersebut bersifat publik atau privat.
+	\item Klik \texttt{Create repository}.
+\end{itemize}
+
+\subsection{2. Inisialisasi Proyek Secara Lokal}
+Buka terminal dan navigasikan ke direktori proyek Anda. Jalankan perintah berikut untuk menginisialisasi repository Git baru:
+
+\begin{lstlisting}[language=bash]
+	cd /path/to/your/project
+	git init
+\end{lstlisting}
+
+\subsection{3. Tambahkan File ke Repository}
+Tambahkan file yang ingin disertakan dalam commit pertama:
+
+\begin{lstlisting}[language=bash]
+	git add .
+\end{lstlisting}
+
+\subsection{4. Komit Perubahan}
+Buat commit pertama dengan pesan deskriptif:
+
+\begin{lstlisting}[language=bash]
+	git commit -m "Initial commit"
+\end{lstlisting}
+
+\subsection{5. Hubungkan Repository Lokal ke GitHub}
+Tambahkan URL repository jarak jauh yang Anda buat di GitHub. Gantilah \texttt{<USERNAME>} dengan nama pengguna GitHub Anda dan \texttt{<REPO>} dengan nama repository:
+
+\begin{lstlisting}[language=bash]
+	git remote add origin https://github.com/<USERNAME>/<NAMA-REPOSITORY>.git
+\end{lstlisting}
+
+\subsection{6. Unggah Perubahan ke GitHub}
+Akhirnya, unggah perubahan lokal Anda ke repository GitHub:
+
+\begin{lstlisting}[language=bash]
+	git push -u origin main
+\end{lstlisting}
+\textit{(Gantilah \texttt{main} dengan \texttt{master} jika cabang default Anda adalah \texttt{master}).}
+
+\section{Membuat Repository Baru dan Mengirim Proyek ke GitHub}
+
+Sebelum mengirim proyek ke GitHub, pastikan bahwa perintah \texttt{gh} sudah terinstal di sistem dan telah melakukan autentikasi ke GitHub. Berikut langkah-langkah yang perlu diikuti:
+
+\subsection{Persiapan Menggunakan \texttt{gh}}
+
+\begin{enumerate}
+	\item Pastikan \texttt{gh} sudah terinstal di sistem. Jika belum, instal dengan menjalankan perintah berikut untuk Ubuntu:
+	\begin{lstlisting}[language=bash]
+		sudo apt install gh
+	\end{lstlisting}
+	
+	\item Setelah diinstal, lakukan autentikasi ke GitHub dengan menggunakan perintah:
+	\begin{lstlisting}[language=bash]
+		gh auth login
+	\end{lstlisting}
+	Ikuti langkah-langkah autentikasi yang diberikan.
+	
+	\item Untuk membuat repository baru, jalankan perintah berikut:
+	\begin{lstlisting}[language=bash]
+		gh repo create nama-repository --public
+	\end{lstlisting}
+	Perintah ini akan membuat repository baru dengan nama \texttt{nama-repository} yang bersifat publik. Jika ingin membuat repository private, gunakan opsi \texttt{--private}.
+\end{enumerate}
+
+\subsection{Membuat Repository Baru dan Mengirim Perubahan ke GitHub}
+
+Jika Anda ingin membuat repository baru dan langsung mengirim proyek ke GitHub, gunakan langkah berikut:
+
+\begin{enumerate}
+	\item Buat file \texttt{README.md}:
+	\begin{lstlisting}[language=bash]
+		echo "# nama-proyek" >> README.md
+	\end{lstlisting}
+	
+	\item Inisialisasi repository Git:
+	\begin{lstlisting}[language=bash]
+		git init
+	\end{lstlisting}
+	
+	\item Tambahkan file \texttt{README.md} ke staging area:
+	\begin{lstlisting}[language=bash]
+		git add README.md
+	\end{lstlisting}
+	
+	\item Commit file tersebut dengan pesan \texttt{"first commit"}:
+	\begin{lstlisting}[language=bash]
+		git commit -m "first commit"
+	\end{lstlisting}
+	
+	\item Ganti branch default menjadi \texttt{main}:
+	\begin{lstlisting}[language=bash]
+		git branch -M main
+	\end{lstlisting}
+	
+	\item Tambahkan repository remote GitHub:
+	\begin{lstlisting}[language=bash]
+		git remote add origin https://github.com/<username>/<nama-proyek>.git
+	\end{lstlisting}
+	
+	\item Kirim (push) commit ke repository GitHub:
+	\begin{lstlisting}[language=bash]
+		git push -u origin main
+	\end{lstlisting}
+\end{enumerate}
+
+\subsection{Mengirim Proyek yang Sudah Ada ke Repository GitHub}
+
+Jika Anda memiliki repository Git yang sudah ada dan ingin mengirimnya ke GitHub, gunakan perintah berikut:
+
+\begin{enumerate}
+	\item Tambahkan repository remote GitHub:
+	\begin{lstlisting}[language=bash]
+		git remote add origin https://github.com/<username>/<nama-proyek>.git
+	\end{lstlisting}
+	
+	\item Ganti branch default menjadi \texttt{main}:
+	\begin{lstlisting}[language=bash]
+		git branch -M main
+	\end{lstlisting}
+	
+	\item Kirim (push) commit yang ada ke GitHub:
+	\begin{lstlisting}[language=bash]
+		git push -u origin main
+	\end{lstlisting}
+\end{enumerate}
+
+Dengan langkah-langkah di atas, Anda dapat membuat repository baru dari proyek lokal atau mengirim proyek yang sudah ada ke GitHub. Perintah \texttt{git push} akan mengirimkan commit yang ada ke repository remote di GitHub, sedangkan \texttt{-u} akan mengatur cabang \texttt{main} sebagai cabang default untuk operasi \texttt{push} di masa mendatang.
+
+
+\section{Instalasi Maven dan Membuat Proyek Java \textit{Hello World} Menggunakan Maven}
+
+Maven adalah alat otomatisasi proyek yang sering digunakan untuk proyek Java. Maven memudahkan manajemen dependensi dan pembuatan proyek.
+
+\subsection{Instalasi Maven}
+
+Untuk menginstal Maven di Ubuntu, ikuti langkah-langkah berikut:
+
+\begin{enumerate}
+	\item Update paket sistem terlebih dahulu:
+	\begin{lstlisting}[language=bash]
+		sudo apt update
+	\end{lstlisting}
+	
+	\item Instal Maven dengan perintah berikut:
+	\begin{lstlisting}[language=bash]
+		sudo apt install maven
+	\end{lstlisting}
+	
+	\item Pastikan instalasi berhasil dengan memeriksa versi Maven:
+	\begin{lstlisting}[language=bash]
+		mvn -version
+	\end{lstlisting}
+	Anda akan melihat informasi versi Maven yang terinstal jika instalasi berhasil.
+\end{enumerate}
+
+\subsection{Membuat Proyek Java \textit{Hello World} Menggunakan Maven}
+
+Setelah Maven diinstal, Anda dapat membuat proyek Java sederhana. Berikut adalah langkah-langkah untuk membuat proyek \textit{Hello World} menggunakan Maven:
+
+\begin{enumerate}
+	\item Buat proyek Maven baru dengan perintah berikut:
+	\begin{lstlisting}[language=bash]
+		mvn archetype:generate -DgroupId=com.example -DartifactId=hello-world -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+	\end{lstlisting}
+	Perintah ini akan membuat proyek Java dasar dengan struktur Maven. 
+	\texttt{groupId} digunakan untuk mengidentifikasi paket proyek Anda, dan \texttt{artifactId} adalah nama proyek Anda (dalam hal ini \texttt{hello-world}).
+	
+	\item Masuk ke direktori proyek yang baru saja dibuat:
+	\begin{lstlisting}[language=bash]
+		cd hello-world
+	\end{lstlisting}
+	
+	\item Buka file \texttt{pom.xml} dan tambahkan properti berikut untuk menggunakan Java 17 sebagai versi kompilasi ke dalam tag \texttt{<project></project>}:
+	\begin{lstlisting}[language=bash]
+	<project>
+		...
+		<properties>
+			<maven.compiler.source>17</maven.compiler.source>
+			<maven.compiler.target>17</maven.compiler.target>
+		</properties>
+		...
+	</project>
+	\end{lstlisting}
+	Properti ini memastikan proyek dikompilasi menggunakan Java 17.
+	
+	\item Edit file \texttt{App.java} di direktori \texttt{src/main/java/com/example/App.java}. Pastikan kode berikut ada di dalam file tersebut:
+	\begin{lstlisting}[style=java]
+		package com.example;
+		
+		public class App {
+			public static void main(String[] args) {
+				System.out.println("Hello World!");
+			}
+		}
+	\end{lstlisting}
+	
+	\item Setelah kode selesai, Anda dapat membangun proyek dengan menjalankan perintah:
+	\begin{lstlisting}[language=bash]
+		mvn package
+	\end{lstlisting}
+	Maven akan mengompilasi proyek dan menghasilkan file \texttt{JAR} di direktori \texttt{target}.
+	
+	\item Jalankan proyek dengan perintah berikut:
+	\begin{lstlisting}[language=bash]
+		java -cp target/hello-world-1.0-SNAPSHOT.jar com.example.App
+	\end{lstlisting}
+	Anda akan melihat keluaran \texttt{Hello World!} di terminal.
+\end{enumerate}
+
+Dengan mengikuti langkah-langkah ini, Anda dapat membuat dan menjalankan proyek Java sederhana menggunakan Maven dengan konfigurasi untuk Java 16.
+
+\section{Mengabaikan File yang Tidak Perlu dengan \texttt{.gitignore}}
+
+File \texttt{.gitignore} digunakan untuk mengabaikan file yang tidak perlu dilacak oleh Git, seperti file hasil kompilasi, file sementara, dan file log. Untuk Java, Anda bisa menggunakan template \texttt{.gitignore} yang sudah tersedia dari GitHub.
+
+Anda dapat menemukan template \texttt{.gitignore} untuk berbagai bahasa pemrograman di:
+\begin{itemize}
+	\item \href{https://github.com/github/gitignore/tree/main}{https://github.com/github/gitignore/tree/main}
+\end{itemize}
+
+Untuk Java, cukup salin isi dari template \texttt{.gitignore} khusus Java yang tersedia di:
+\begin{itemize}
+	\item \href{https://github.com/github/gitignore/blob/main/Java.gitignore}{https://github.com/github/gitignore/blob/main/Java.gitignore}
+\end{itemize}
+
+Salin isi file tersebut dan tempel ke file \texttt{.gitignore} lokal proyek Anda. Ini akan membantu mengabaikan file dan direktori yang tidak diperlukan untuk proyek Java, seperti direktori \texttt{target/}, file \texttt{.class}, dan sebagainya.
+
+Berikut contoh beberapa entri yang umum digunakan di \texttt{.gitignore} untuk proyek Java:
+\begin{lstlisting}[language=bash]
+	# File .gitignore
+	target/
+	*.class
+	*.log
+	*.tmp
+	*.cache
+	*.jar
+\end{lstlisting}
+
+Dengan menggunakan file \texttt{.gitignore} yang sesuai, Anda dapat memastikan bahwa hanya file penting yang dilacak oleh Git dan menghindari mengunggah file yang tidak relevan ke repository.
+
+\section{Meng-\texttt{add}, \texttt{commit}, dan \texttt{push} Proyek ke Repository Git}
+
+Setelah proyek Java \textit{Hello World} dibuat dan berhasil dijalankan menggunakan Maven, langkah selanjutnya adalah menambahkan proyek tersebut ke repository Git, melakukan \texttt{commit} awal, dan mengirimkan proyek tersebut ke repository GitHub. Berikut adalah langkah-langkahnya:
+
+\begin{enumerate}
+	\item Inisialisasi repository Git di direktori proyek:
+	\begin{lstlisting}[language=bash]
+		git init
+	\end{lstlisting}
+	Perintah ini akan membuat repository Git lokal di dalam direktori proyek.
+	
+	\item Tambahkan semua file proyek ke staging area menggunakan perintah:
+	\begin{lstlisting}[language=bash]
+		git add .
+	\end{lstlisting}
+	Perintah ini menambahkan semua file dan direktori yang ada di dalam proyek ke dalam staging area, siap untuk di-commit.
+	
+	\item Lakukan \texttt{commit} awal untuk menyimpan perubahan yang telah ditambahkan:
+	\begin{lstlisting}[language=bash]
+		git commit -m "Initial commit for Maven Hello World project"
+	\end{lstlisting}
+	Pesan commit ini menjelaskan bahwa ini adalah commit awal untuk proyek Maven \textit{Hello World}.
+	
+	\item Tambahkan remote repository GitHub:
+	\begin{lstlisting}[language=bash]
+		git remote add origin https://github.com/<nama-user>/<nama-repository>.git
+	\end{lstlisting}
+	Perintah ini menghubungkan repository lokal dengan repository GitHub.
+	
+	\item Kirim (push) commit awal ke repository GitHub:
+	\begin{lstlisting}[language=bash]
+		git push -u origin main
+	\end{lstlisting}
+	Perintah ini akan mengirimkan commit ke cabang \texttt{main} di repository GitHub dan mengatur cabang \texttt{main} sebagai default untuk \texttt{push} berikutnya.
+\end{enumerate}
+
+\section{Menambahkan Kolaborator di GitHub}
+
+Anda dapat menambahkan kolaborator dengan langkah-langkah berikut:
+
+\begin{enumerate}
+	\item Buka situs \url{https://github.com} dan login ke akun GitHub Anda.
+	
+	\item Buka repository yang ingin Anda tambahkan kolaboratornya.
+	
+	\item Klik pada tab \texttt{Settings} di halaman repository tersebut.
+	
+	\item Gulir ke bawah hingga Anda menemukan bagian \texttt{Collaborators} atau \texttt{Manage Access}. Klik tombol tersebut untuk membuka pengaturan akses kolaborator.
+	
+	\item Klik tombol \texttt{Add people}.
+	
+	\item Masukkan username GitHub kolaborator yang ingin Anda tambahkan.
+	
+	\item Setelah menemukan pengguna yang tepat, klik tombol \texttt{Add} untuk menambahkan mereka sebagai kolaborator.
+	
+	\item Kolaborator akan menerima undangan untuk berkontribusi pada repository melalui email atau notifikasi GitHub. Mereka harus menyetujui undangan tersebut sebelum bisa berkontribusi.
+\end{enumerate}
+
+Dengan menggunakan metode di atas, Anda dapat dengan mudah menambahkan kolaborator ke repository GitHub untuk bekerja secara bersama-sama dalam proyek.
+
+
+\section{Meng-clone dan Memperbarui Proyek dari Repository GitHub Menggunakan Acccount Collaborator}
+
+Setelah repository GitHub telah dibuat dan mungkin telah ada beberapa kolaborator, langkah selanjutnya adalah meng-clone proyek tersebut ke mesin lokal dengan menggunakan User GitHub lain. Berikut adalah langkah-langkah yang perlu diikuti:
+
+\begin{enumerate}
+	\item Dapatkan URL dari repository yang ingin di-clone. Anda dapat menemukan URL ini di halaman utama repository di GitHub, biasanya terletak di sebelah tombol \texttt{Code}. URL tersebut bisa berupa HTTPS atau SSH.
+	
+	\item Buka terminal di mesin lokal Anda.
+	
+	\item Jalankan perintah berikut untuk meng-clone repository:
+	\begin{lstlisting}[language=bash]
+		git clone https://github.com/<nama-user>/<nama-repository>.git
+	\end{lstlisting}
+	Gantilah \texttt{<repository-url>} dengan URL yang Anda dapatkan sebelumnya.
+	
+	\item Setelah perintah ini dijalankan, Git akan membuat salinan lokal dari repository di direktori saat ini. Anda akan melihat folder baru dengan nama repository.
+	
+	\item Masuk ke direktori proyek yang telah di-clone:
+	\begin{lstlisting}[language=bash]
+		cd <nama-repository>
+	\end{lstlisting}
+	Gantilah \texttt{<nama-repository>} dengan nama folder yang sesuai.
+	
+	\item Sekarang Anda dapat mulai bekerja dengan kode. Misalnya, perbarui kode berikut:
+	\begin{lstlisting}[style=java]
+		package com.example;
+		
+		public class App {
+			public static void main(String[] args) {
+				System.out.println("Hello World!");
+			}
+		}
+	\end{lstlisting}
+	Menjadi:
+	\begin{lstlisting}[style=java]
+		package com.example;
+		
+		public class App {
+			public static void main(String[] args) {
+				System.out.println("AAAA Hello World!");
+			}
+		}
+	\end{lstlisting}
+	
+	\item Setelah melakukan perubahan, tambahkan file yang telah diubah ke staging area dengan perintah:
+	\begin{lstlisting}[language=bash]
+		git add .
+	\end{lstlisting}
+	
+	\item Lakukan commit untuk menyimpan perubahan dengan pesan yang sesuai:
+	\begin{lstlisting}[language=bash]
+		git commit -m "Update Hello World message"
+	\end{lstlisting}
+	
+	\item Terakhir, push perubahan ke repository GitHub:
+	\begin{lstlisting}[language=bash]
+		git push origin main
+	\end{lstlisting}
+\end{enumerate}
+
+Dengan langkah-langkah ini, pengguna lain dapat dengan mudah meng-clone proyek dari repository GitHub, melakukan perubahan, dan berkontribusi terhadap pengembangan proyek tersebut.
+
+\section{Mengupdate Kode Java dan Menangani Konflik}
+
+Pada bagian ini, kode Java akan diperbarui dari versi sebelumnya. Pengguna pertama akan melakukan perubahan dan mencoba untuk melakukan push, namun akan mengalami konflik karena perubahan yang dilakukan oleh pengguna lain di repository. 
+
+\subsection{Kode Awal}
+
+Berikut adalah kode awal yang mencetak "Hello World!" ke konsol:
+
+\begin{lstlisting}[style=java]
+	package com.example;
+	
+	public class App {
+		public static void main(String[] args) {
+			System.out.println("Hello World!");
+		}
+	}
+\end{lstlisting}
+
+\subsection{Mengupdate Kode}
+
+Kode di atas akan diperbarui menjadi:
+
+\begin{lstlisting}[style=java]
+	package com.example;
+	public class App {
+		public static void main(String[] args) {
+			System.out.println("XXXX Hello World!");
+		}
+	}
+\end{lstlisting}
+
+Setelah melakukan pembaruan, lakukan langkah-langkah berikut untuk menambahkan, melakukan commit, dan push:
+
+\begin{enumerate}
+	\item Tambahkan perubahan ke staging area:
+	\begin{lstlisting}[language=bash]
+		git add .
+	\end{lstlisting}
+	
+	\item Lakukan commit dengan pesan deskriptif:
+	\begin{lstlisting}[language=bash]
+		git commit -m "Update Hello World message to XXXX"
+	\end{lstlisting}
+	
+	\item Coba lakukan push ke repository GitHub:
+	\begin{lstlisting}[language=bash]
+		git push origin main
+	\end{lstlisting}
+\end{enumerate}
+
+\subsection{Error saat Push}
+
+Ketika mencoba untuk melakukan push, mungkin akan muncul pesan error seperti berikut:
+
+\begin{lstlisting}[language=bash]
+	! [rejected]        main -> main (fetch first)
+	error: failed to push some refs to 'https://github.com/<username>/<nama-repository>.git'
+	hint: Updates were rejected because the tip of your current branch is behind
+	hint: its remote counterpart. Integrate the remote changes (e.g.
+	hint: 'git pull ...') before pushing again.
+\end{lstlisting}
+
+Pesan error ini menunjukkan bahwa branch lokal tertinggal dari branch di repository remote.
+
+\subsection{Mengambil Perubahan dari Remote}
+
+Untuk menyelesaikan konflik, lakukan pull untuk mengambil perubahan terbaru dari repository:
+
+\begin{lstlisting}[language=bash]
+	git pull origin main
+\end{lstlisting}
+
+\subsection{Error saat Pull}
+
+Saat melakukan pull, akan muncul pesan error seperti berikut jika ada konflik:
+
+\begin{lstlisting}[language=bash]
+	Auto-merging App.java
+	CONFLICT (content): Merge conflict in App.java
+	Automatic merge failed; fix conflicts and then commit the result.
+\end{lstlisting}
+
+Error ini menunjukkan bahwa terdapat konflik dalam file `App.java` yang perlu diselesaikan sebelum melakukan push kembali.
+
+
+\subsection{Menampilkan File yang Konflik di Git}
+
+Ketika terjadi konflik selama proses \texttt{merge} atau \texttt{rebase}, Git akan menandai file yang mengalami konflik. Berikut adalah langkah-langkah untuk menampilkan file yang konflik:
+
+\begin{enumerate}
+	\item Jalankan perintah berikut untuk menampilkan status repositori:
+	\begin{lstlisting}[language=bash]
+		git status
+	\end{lstlisting}
+	Perintah ini akan menampilkan status direktori kerja dan area staging, termasuk file-file yang mengalami konflik. Cari baris yang menunjukkan "both modified" atau "unmerged" files.
+	
+	\item Untuk menampilkan hanya nama file yang mengalami konflik, gunakan perintah berikut:
+	\begin{lstlisting}[language=bash]
+		git diff --name-only --diff-filter=U
+	\end{lstlisting}
+	Perintah ini akan menampilkan daftar nama file yang memiliki konflik (ditandai sebagai "U" untuk unmerged).
+	
+	\item Jika ingin melihat perbedaan spesifik dalam file-file yang konflik, jalankan:
+	\begin{lstlisting}[language=bash]
+		git diff
+	\end{lstlisting}
+	Perintah ini akan menunjukkan perubahan dari kedua cabang yang menyebabkan konflik, menggunakan penanda konflik (\texttt{<<<<<<<}, \texttt{=======}, \texttt{>>>>>>>}) dalam output.
+\end{enumerate}
+
+\subsection{Menyelesaikan Konflik}
+
+Buka file `App.java` dan perbaiki konflik yang ada. Kode target yang benar setelah perbaikan adalah sebagai berikut:
+
+\begin{lstlisting}[style=java]
+	package com.example;
+	
+	/**
+	* Hello world!
+	*
+	*/
+	public class App 
+	{
+		public static void main( String[] args )
+		{
+			System.out.println("BBBBBBBBb Hello World!");
+			System.out.println( "AAAAAAAAAAAa Hello World!" );
+		}
+	}
+\end{lstlisting}
+
+Kemudian, lakukan langkah-langkah berikut untuk menyelesaikan proses:
+
+\begin{enumerate}
+	\item Tambahkan file yang sudah diperbaiki ke staging area:
+	\begin{lstlisting}[language=bash]
+		git add App.java
+	\end{lstlisting}
+	
+	\item Lakukan commit untuk menyelesaikan merge:
+	\begin{lstlisting}[language=bash]
+		git commit -m "Resolve merge conflict in App.java"
+	\end{lstlisting}
+	
+	\item Lakukan push ke repository GitHub:
+	\begin{lstlisting}[language=bash]
+		git push origin main
+	\end{lstlisting}
+\end{enumerate}
+
+Dengan mengikuti langkah-langkah ini, pengguna dapat mengupdate kode, menangani error saat melakukan push dan pull, serta menyelesaikan konflik yang terjadi.
+
+
+
+
+

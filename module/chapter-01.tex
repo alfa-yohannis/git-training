@@ -1,0 +1,111 @@
+\chapter{Sistem Version Control dan Git}
+
+\section{Pendahuluan}
+\textbf{Apa itu Sistem Version Control?} \\
+Sistem version control (VCS) adalah alat yang membantu mengelola perubahan pada kode sumber atau dokumen dari waktu ke waktu. VCS memungkinkan beberapa pengembang untuk berkolaborasi, melacak perubahan, dan mengembalikan ke versi sebelumnya jika diperlukan. VCS mencatat setiap perubahan yang dilakukan pada file, sehingga memudahkan pelacakan evolusi proyek.
+
+Beberapa manfaat utama menggunakan VCS antara lain:
+\begin{itemize}
+	\item \textbf{Kolaborasi}: Beberapa anggota tim dapat bekerja pada proyek yang sama secara bersamaan tanpa saling menimpa pekerjaan satu sama lain.
+	\item \textbf{Riwayat}: Setiap perubahan dicatat, memberikan riwayat lengkap dari modifikasi yang dilakukan.
+	\item \textbf{Kemampuan Mengembalikan}: Dimungkinkan untuk mengembalikan ke versi sebelumnya jika terjadi kesalahan.
+	\item \textbf{Branching dan Merging}: Fitur atau perbaikan yang berbeda dapat dikembangkan secara terpisah, lalu digabungkan kembali ke dalam proyek utama setelah selesai.
+\end{itemize}
+
+\section{Jenis-jenis Sistem Version Control}
+
+\subsection{Local Version Control System (LVCS)}
+Sistem version control lokal (Local Version Control System) menyimpan semua versi file secara lokal di komputer pengguna. Pada umumnya, salinan file dibuat secara manual di direktori yang berbeda untuk melacak perubahan. Namun, metode ini rentan terhadap kesalahan karena tidak ada mekanisme otomatis untuk melacak versi yang lebih kompleks.
+
+\textbf{Contoh produk}:
+\begin{itemize}
+	\item File system sederhana yang digunakan untuk membuat salinan file secara manual.
+\end{itemize}
+
+\subsection{Centralized Version Control System (CVCS)}
+Centralized Version Control System (CVCS) menggunakan server pusat yang menyimpan semua versi file. Pengguna harus terhubung ke server ini untuk mendapatkan atau memperbarui versi file. Sistem ini mempermudah kolaborasi, tetapi memiliki kelemahan jika server pusat mengalami kegagalan.
+
+\textbf{Contoh produk}:
+\begin{itemize}
+	\item \textbf{Subversion (SVN)}: Sistem version control terpusat yang populer dan digunakan di banyak perusahaan dan proyek perangkat lunak.
+	\item \textbf{Perforce}: Sistem VCS yang digunakan oleh perusahaan besar untuk proyek pengembangan perangkat lunak berskala besar.
+	\item \textbf{CVS (Concurrent Versions System)}: Sistem version control yang lebih tua, namun masih digunakan di beberapa proyek.
+\end{itemize}
+
+\subsection{Distributed Version Control System (DVCS)}
+Distributed Version Control System (DVCS) memungkinkan setiap pengguna memiliki salinan lengkap dari seluruh riwayat proyek di komputer masing-masing. Pengguna dapat bekerja secara offline, dan perubahan dapat digabungkan baik dengan server pusat atau dengan pengguna lain. Sistem ini menawarkan fleksibilitas dan keamanan lebih tinggi karena data disimpan di banyak tempat.
+
+\textbf{Contoh produk}:
+\begin{itemize}
+	\item \textbf{Git (Global Information Tracker)}: Sistem version control terdistribusi yang paling populer dan digunakan dalam banyak proyek open-source dan perusahaan besar.
+	\item \textbf{Mercurial}: Alternatif untuk Git yang menawarkan beberapa kesederhanaan dan kemudahan penggunaan.
+	\item \textbf{Bazaar}: Sistem VCS yang digunakan di beberapa komunitas open-source.
+\end{itemize}
+
+\section{Latar Belakang Git}
+Git adalah sistem version control terdistribusi, yang awalnya dikembangkan oleh Linus Torvalds pada tahun 2005 untuk mengelola pengembangan kernel Linux. Pada saat itu, tidak ada sistem version control yang memenuhi kebutuhan kinerja, fleksibilitas, dan skalabilitas yang tinggi untuk pengembangan Linux.
+
+Git diciptakan dengan beberapa tujuan desain utama:
+\begin{itemize}
+	\item \textbf{Kecepatan}: Penanganan tugas-tugas version control seperti commit, branching, dan merging dengan cepat.
+	\item \textbf{Desain Sederhana}: Git dirancang agar mudah digunakan namun cukup kuat untuk menangani alur kerja yang kompleks.
+	\item \textbf{Dukungan Kuat untuk Pengembangan Non-linear}: Ini dicapai melalui kemampuan branching dan merging yang kuat.
+	\item \textbf{Pengembangan Terdistribusi}: Setiap pengembang memiliki salinan penuh dari sejarah proyek secara lokal, sehingga dapat bekerja secara offline dan tetap memiliki akses ke seluruh riwayat versi.
+\end{itemize}
+
+Sejak diciptakan, Git telah menjadi sistem version control yang paling populer di dunia, digunakan secara luas oleh pengembang perangkat lunak, organisasi, dan komunitas open-source.
+
+\section{Instal Git Secara Lokal}
+Git adalah sistem version control terdistribusi yang banyak digunakan untuk pengembangan perangkat lunak dan tugas-tugas version control lainnya. Untuk mulai menggunakan Git, instalasi perlu dilakukan secara lokal di komputer.
+
+\subsection{Menginstal Git di Windows}
+\begin{itemize}
+	\item Unduh installer Git dari situs resmi: \url{https://git-scm.com/download/win}
+	\item Jalankan installer dan ikuti petunjuknya. Pilih opsi default kecuali jika ada kebutuhan khusus.
+	\item Setelah instalasi selesai, buka command prompt dan ketik \texttt{git --version} untuk memverifikasi bahwa Git telah diinstal dengan sukses.
+	\begin{lstlisting}[language=bash]
+		git --version
+	\end{lstlisting}
+\end{itemize}
+
+\subsection{Menginstal Git di macOS}
+\begin{itemize}
+	\item Buka terminal dan jalankan perintah: \texttt{xcode-select --install}. Perintah ini akan menginstal Git dan alat pengembang command line dari Apple.
+	\begin{lstlisting}[language=bash]
+		xcode-select --install
+	\end{lstlisting}
+	\item Sebagai alternatif, gunakan package manager seperti Homebrew dengan menjalankan: \texttt{brew install git}.
+	\begin{lstlisting}[language=bash]
+		brew install git
+	\end{lstlisting}
+	\item Verifikasi instalasi dengan mengetik \texttt{git --version}.
+	\begin{lstlisting}[language=bash]
+		git --version
+	\end{lstlisting}
+\end{itemize}
+
+\subsection{Menginstal Git di Linux}
+\begin{itemize}
+	\item Pada distribusi berbasis Debian seperti Ubuntu, jalankan: \texttt{sudo apt-get install git}.
+	\begin{lstlisting}[language=bash]
+		sudo apt-get install git
+	\end{lstlisting}
+	\item Pada distribusi berbasis Red Hat, jalankan: \texttt{sudo yum install git}.
+	\begin{lstlisting}[language=bash]
+		sudo yum install git
+	\end{lstlisting}
+	\item Verifikasi instalasi dengan \texttt{git --version}.
+	\begin{lstlisting}[language=bash]
+		git --version
+	\end{lstlisting}
+\end{itemize}
+
+\section{Membuat Akun GitHub}
+GitHub adalah platform populer untuk menghosting repository Git di cloud. GitHub menawarkan rencana gratis dan berbayar untuk mengelola repository.
+
+\begin{enumerate}
+	\item Buka \url{https://github.com/} dan klik tombol \texttt{Sign up}.
+	\item Isi detail yang diperlukan, termasuk alamat email yang valid dan nama pengguna yang unik.
+	\item Verifikasi email dan selesaikan proses pembuatan akun.
+	\item Setelah masuk, mulai membuat repository dan berkolaborasi dengan yang lain.
+\end{enumerate}

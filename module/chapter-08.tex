@@ -1,0 +1,169 @@
+\chapter{Latihan Branch and Pull Request}
+
+\section{Membuat Branch Baru untuk Proyek Maven dan Mela\-kukan \texttt{Push}}
+
+Saat bekerja dalam tim atau mengembangkan fitur baru, penting untuk membuat \textit{branch} terpisah agar perubahan dapat dikelola dengan lebih baik tanpa mengganggu \texttt{main} branch. Berikut adalah langkah-langkah untuk membuat \textit{branch} baru di Git menggunakan proyek Maven yang telah dibuat:
+
+\begin{enumerate}
+	\item Pastikan bahwa Anda berada di direktori proyek Maven:
+	\begin{lstlisting}[language=bash]
+		cd /path/to/your/maven-project
+	\end{lstlisting}
+	
+	\item Buat \textit{branch} baru menggunakan perintah \texttt{git branch} atau \texttt{git checkout -b} untuk langsung beralih ke branch tersebut:
+	\begin{lstlisting}[language=bash]
+		git checkout -b nama_branch_baru
+	\end{lstlisting}
+	Perintah ini akan membuat \textit{branch} baru dengan nama \texttt{nama\_branch\_baru} dan langsung memindahkan Anda ke branch tersebut.
+	
+	\item Setelah \textit{branch} dibuat, Anda dapat mulai melakukan perubahan pada proyek Maven. Setiap perubahan yang Anda lakukan pada branch ini akan terisolasi dari \texttt{main} branch.
+	
+	\item Untuk melihat daftar \textit{branch} yang ada, gunakan perintah:
+	\begin{lstlisting}[language=bash]
+		git branch
+	\end{lstlisting}
+	Perintah ini akan menampilkan semua \textit{branch} yang ada di repository Git, dengan \textit{branch} aktif ditandai dengan simbol \texttt{*}.
+\end{enumerate}
+
+\subsection{Update Kode Proyek Maven}
+
+Setelah membuat branch baru dan melakukan beberapa perubahan, berikut adalah update terbaru dari kode Java di proyek Maven. Kode ini sekarang memeriksa apakah ada argumen yang diberikan saat aplikasi dijalankan. Jika ada argumen, aplikasi akan menyapa pengguna dengan nama yang diberikan; jika tidak ada, aplikasi akan menampilkan pesan "Hello, World!".
+
+\begin{lstlisting}[style=java]
+	package com.example;
+	
+	public class App {
+		public static void main(String[] args) {
+			if (args.length > 0) {
+				System.out.println("Hello, " + args[0] + "!");
+			} else {
+				System.out.println("Hello, World!");
+			}
+		}
+	}
+\end{lstlisting}
+Perubahan ini menambahkan logika sederhana untuk menyesuaikan output berdasarkan argumen yang diberikan. 
+
+Setelah kode selesai, Anda dapat membangun proyek dengan menjalankan perintah:
+\begin{lstlisting}[language=bash]
+	mvn package
+\end{lstlisting}
+Maven akan mengompilasi proyek dan menghasilkan file \texttt{JAR} di direktori \texttt{target}.
+
+Jalankan proyek dengan perintah berikut:
+\begin{lstlisting}[language=bash]
+	java -cp target/hello-world-1.0-SNAPSHOT.jar com.example.App John
+\end{lstlisting}
+
+Output programnya akan menjadi:
+
+\begin{lstlisting}[language=bash]
+	Hello, John!
+\end{lstlisting}
+
+Jika aplikasi dijalankan tanpa argumen:
+
+\begin{lstlisting}[language=bash]
+	Hello, World!
+\end{lstlisting}
+
+
+\subsection{Menambahkan Perubahan, \texttt{Commit}, dan Mendorong (\textit{Push}) Branch Baru ke GitHub}
+
+Setelah melakukan perubahan di branch baru, Anda dapat menambahkannya ke \texttt{staging area}, melakukan \texttt{commit}, dan kemudian mendorong (\textit{push}) branch tersebut ke GitHub.
+
+\begin{enumerate}
+	\item Tambahkan perubahan ke \texttt{staging area}:
+	\begin{lstlisting}[language=bash]
+		git add .
+	\end{lstlisting}
+	
+	\item Lakukan \texttt{commit} dengan pesan yang sesuai:
+	\begin{lstlisting}[language=bash]
+		git commit -m "Menambahkan fitur baru pada Maven project"
+	\end{lstlisting}
+	
+	\item Setelah \texttt{commit}, dorong (\textit{push}) branch baru ke GitHub dengan perintah:
+	\begin{lstlisting}[language=bash]
+		git push origin nama_branch_baru
+	\end{lstlisting}
+	Perintah ini akan mendorong \textit{branch} baru yang telah dibuat dan di-\texttt{commit} ke remote repository di GitHub.
+	
+	\item Jika perubahan sudah siap untuk digabungkan kembali ke \texttt{main}, branch ini dapat di-\texttt{merge} menggunakan perintah berikut (lakukan ini setelah beralih kembali ke \texttt{main} branch):
+	\begin{lstlisting}[language=bash]
+		git checkout main
+		git merge nama_branch_baru
+	\end{lstlisting}
+	
+	\item Setelah digabung, jangan lupa untuk mendorong perubahan dari \texttt{main} ke GitHub:
+	\begin{lstlisting}[language=bash]
+		git push origin main
+	\end{lstlisting}
+\end{enumerate}
+
+Dengan menggunakan branch terpisah, Anda dapat mengembangkan fitur baru atau melakukan perbaikan tanpa mengganggu stabilitas proyek di branch utama, serta mendorong perubahan tersebut ke GitHub untuk dibagikan atau ditinjau oleh tim.
+
+
+
+\section{Membuat Pull Request di GitHub}
+
+Setelah melakukan perubahan pada branch baru dan melakukan push perubahan ke GitHub, langkah berikutnya adalah membuat \textit{pull request} (PR) agar perubahan dapat ditinjau dan digabungkan ke cabang utama (main). Pull request dapat dibuat baik melalui GitHub web interface maupun command prompt menggunakan GitHub CLI (gh).
+
+\subsection{Membuat Pull Request Menggunakan GitHub Web}
+
+\begin{enumerate}
+	\item Buka repository proyek di GitHub yang telah Anda push ke branch baru.
+	\item Klik pada tab \texttt{Pull requests}.
+	\item Klik tombol \texttt{New pull request} di sisi kanan.
+	\item Pilih branch yang baru saja Anda push sebagai sumber (\textit{source branch}), dan pastikan \texttt{main} sebagai tujuan (\textit{target branch}).
+	\item Berikan deskripsi yang jelas tentang perubahan yang Anda buat, seperti:
+	\begin{quote}
+		"Mengubah \texttt{App.java} untuk mendukung argumen pengguna dan menampilkan pesan \texttt{Hello, <nama>!} jika argumen diberikan."
+	\end{quote}
+	\item Klik tombol \texttt{Create pull request} untuk mengirimkan permintaan.
+\end{enumerate}
+
+\subsection{Membuat Pull Request Menggunakan Command Prompt}
+
+Anda juga dapat membuat pull request dari command prompt menggunakan GitHub CLI. Berikut adalah langkah-langkahnya:
+
+\begin{enumerate}
+	\item Pastikan Anda telah menginstal GitHub CLI (gh) dan login ke GitHub menggunakan perintah berikut:
+	\begin{lstlisting}[language=bash]
+		gh auth login
+	\end{lstlisting}
+	
+	\item Setelah melakukan push ke branch baru, buat pull request menggunakan perintah:
+	\begin{lstlisting}[language=bash]
+		gh pr create --base main --head <nama-branch> --title "Deskripsi PR" --body "Deskripsi detail tentang perubahan"
+	\end{lstlisting}
+	Misalnya:
+	\begin{lstlisting}[language=bash]
+		gh pr create --base main --head feature-branch --title "Update App.java" --body "Menambahkan dukungan untuk argumen pengguna pada App.java"
+	\end{lstlisting}
+	
+	\item Perintah ini akan membuat pull request dari branch \texttt{feature-branch} ke branch \texttt{main}.
+	
+	\item Jika berhasil, GitHub CLI akan memberikan URL yang dapat Anda buka untuk meninjau dan mengelola pull request tersebut.
+\end{enumerate}
+
+\subsection{Review dan Merge Pull Request}
+
+Setelah pull request dibuat, tim atau kontributor lain dapat meninjau perubahan yang telah Anda buat. Berikut adalah langkah-langkah lanjutan:
+\begin{itemize}
+	\item Jika tidak ada konflik dan perubahan sudah sesuai, pull request dapat disetujui (\textit{approved}).
+	\item Setelah disetujui, pull request dapat digabungkan (\textit{merged}) ke cabang utama (\texttt{main}) dengan mengklik tombol \texttt{Merge pull request} di GitHub, atau menggunakan GitHub CLI:
+	\begin{lstlisting}[language=bash]
+		gh pr merge <nomor-PR>
+	\end{lstlisting}
+	\item Jika ada konflik atau umpan balik dari peninjau, perbaiki perubahan di branch yang sama, kemudian push ulang ke branch tersebut untuk memperbarui pull request.
+\end{itemize}
+
+\subsection{Menutup Pull Request}
+
+Setelah pull request digabungkan, Anda dapat menghapus branch yang sudah tidak dibutuhkan dengan mengklik tombol \texttt{Delete branch} di GitHub, atau dengan menjalankan perintah berikut di lokal:
+\begin{lstlisting}[language=bash]
+	git branch -d <nama-branch>
+\end{lstlisting}
+
+Ini memastikan bahwa repository tetap bersih dan terorganisir dengan baik.

@@ -1,0 +1,114 @@
+\chapter{Reset dan Rollback dalam Git}
+
+Dalam pengembangan perangkat lunak, ada kalanya kita perlu membatalkan atau mengganti perubahan yang telah dilakukan di dalam repository Git. Git menyediakan beberapa perintah yang memungkinkan pengguna untuk melakukan reset atau rollback terhadap perubahan yang telah dilakukan, baik di area kerja (working directory) maupun dalam riwayat commit.
+
+\section{Menggunakan \texttt{git reset}}
+
+Perintah \texttt{git reset} digunakan untuk memindahkan posisi \texttt{HEAD} dan dapat digunakan untuk membatalkan perubahan di area staging atau menghapus commit dari riwayat. Ada tiga mode utama dalam \texttt{git reset}:
+
+\begin{enumerate}
+	\item \texttt{git reset --soft <commit>}: Memindahkan \texttt{HEAD} ke commit yang ditentukan, tetapi tidak mengubah area staging atau area kerja. Commit tetap ada di area staging.
+	\item \texttt{git reset --mixed <commit>}: Mode default, memindahkan \texttt{HEAD} ke commit yang ditentukan dan menghapus perubahan dari area staging, tetapi tidak dari area kerja.
+	\item \texttt{git reset --hard <commit>}: Memindahkan \texttt{HEAD} ke commit yang ditentukan dan menghapus perubahan dari area staging serta area kerja. Semua perubahan yang belum di-commit akan hilang.
+\end{enumerate}
+
+\subsection{Contoh Penggunaan \texttt{git reset}}
+
+\begin{lstlisting}[language=bash]
+	# Melakukan reset soft ke commit sebelumnya
+	git reset --soft HEAD~1
+	
+	# Melakukan reset mixed ke commit dengan hash tertentu
+	git reset --mixed abc1234
+	
+	# Melakukan reset hard ke commit sebelumnya, menghapus perubahan di area kerja
+	git reset --hard HEAD~1
+\end{lstlisting}
+
+Reset sangat berguna ketika Anda ingin membatalkan commit terakhir atau kembali ke status sebelumnya tanpa meninggalkan riwayat commit.
+
+\section{Menggunakan \texttt{git reset} untuk File Tertentu}
+
+Git juga memungkinkan melakukan reset untuk file tertentu tanpa mempengaruhi keseluruhan commit. Ini berguna jika Anda ingin membatalkan perubahan pada satu file tanpa mempengaruhi file lainnya.
+
+\subsection{Contoh Penggunaan \texttt{git reset} untuk File Tertentu}
+
+\begin{lstlisting}[language=bash]
+	# Menghapus file dari area staging dan mengembalikannya ke kondisi sebelum di-commit
+	git reset HEAD <nama-file>
+\end{lstlisting}
+
+Perintah ini akan menghapus file dari staging area dan mengembalikan file ke kondisi sebelumnya tanpa mengubah file lain di staging.
+
+\section{Menggunakan \texttt{git checkout} untuk Rollback File Tertentu}
+
+Selain menggunakan \texttt{git reset}, Anda juga dapat menggunakan \texttt{git checkout} untuk mengembalikan file tertentu ke kondisi commit tertentu atau commit terakhir. Perintah ini mengembalikan file yang dipilih ke status yang ada di commit tertentu.
+
+\subsection{Contoh Penggunaan \texttt{git checkout} untuk Rollback File Tertentu}
+
+\begin{lstlisting}[language=bash]
+	# Mengembalikan file ke kondisi commit sebelumnya
+	git checkout HEAD~1 -- <nama-file>
+	
+	# Mengembalikan file ke kondisi commit tertentu
+	git checkout abc1234 -- <nama-file>
+\end{lstlisting}
+
+Dengan \texttt{git checkout}, Anda bisa mengembalikan file ke versi commit yang telah disimpan sebelumnya tanpa mempengaruhi perubahan file lain.
+
+\section{Menggunakan \texttt{git revert}}
+
+\texttt{git revert} adalah perintah yang digunakan untuk membatalkan perubahan dari commit sebelumnya dengan cara membuat commit baru yang membalikkan perubahan tersebut. Berbeda dengan \texttt{git reset}, \texttt{git revert} tidak mengubah riwayat commit dan lebih cocok digunakan ketika bekerja dalam tim.
+
+\subsection{Contoh Penggunaan \texttt{git revert}}
+
+\begin{lstlisting}[language=bash]
+	# Membatalkan commit terakhir dengan membuat commit baru
+	git revert HEAD
+	
+	# Membatalkan commit tertentu dengan hash
+	git revert abc1234
+\end{lstlisting}
+
+Setelah menjalankan perintah ini, Git akan membuat commit baru yang berisi kebalikan dari perubahan yang ada di commit yang di-revert, sehingga riwayat commit tetap utuh dan aman untuk kolaborasi.
+
+\section{Menggunakan \texttt{git checkout}}
+
+Perintah \texttt{git checkout} dapat digunakan untuk mengembalikan file tertentu ke kondisi seperti di commit sebelumnya atau pindah ke branch/cabang yang lain. Untuk mengembalikan file ke kondisi commit sebelumnya:
+
+\begin{lstlisting}[language=bash]
+	# Mengembalikan file ke kondisi di commit sebelumnya
+	git checkout HEAD~1 -- <nama-file>
+	
+	# Mengembalikan semua file ke kondisi di commit tertentu
+	git checkout abc1234 -- <nama-file>
+\end{lstlisting}
+
+Perintah ini berguna ketika Anda hanya ingin membatalkan perubahan pada beberapa file tanpa mempengaruhi seluruh commit atau branch.
+
+\section{Menggunakan \texttt{git reflog}}
+
+\texttt{git reflog} adalah fitur yang mencatat setiap perubahan pada posisi \texttt{HEAD}, memungkinkan Anda untuk melihat riwayat posisi \texttt{HEAD}, termasuk commit yang telah di-reset atau dihapus. Ini sangat berguna jika Anda secara tidak sengaja melakukan \texttt{reset --hard} dan ingin memulihkan commit yang hilang.
+
+\subsection{Contoh Penggunaan \texttt{git reflog}}
+
+\begin{lstlisting}[language=bash]
+	# Melihat riwayat posisi HEAD
+	git reflog
+	
+	# Memulihkan commit yang hilang dengan git reset ke posisi HEAD sebelumnya
+	git reset --hard HEAD@{2}
+\end{lstlisting}
+
+Dengan \texttt{git reflog}, Anda dapat mengembalikan repository ke kondisi sebelumnya meskipun commit telah dihapus atau di-reset.
+
+\section{Tips untuk Menggunakan Reset dan Rollback dengan Aman}
+
+\begin{itemize}
+	\item Gunakan \texttt{git reset --soft} atau \texttt{--mixed} jika Anda ingin menghindari kehilangan perubahan di area kerja.
+	\item Selalu cek status repository sebelum menggunakan \texttt{git reset --hard} untuk memastikan Anda tidak menghapus perubahan yang penting.
+	\item Lebih baik menggunakan \texttt{git revert} daripada \texttt{git reset} saat bekerja dalam tim untuk menjaga integritas riwayat commit.
+	\item Gunakan \texttt{git reflog} untuk memulihkan commit yang hilang setelah melakukan reset atau operasi berbahaya lainnya.
+\end{itemize}
+
+Dengan menggunakan \texttt{git reset}, \texttt{git revert}, dan \texttt{git reflog} dengan bijak, Anda dapat mengelola perubahan di dalam repository Git dengan lebih fleksibel dan aman.

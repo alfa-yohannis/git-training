@@ -1,0 +1,82 @@
+\chapter{Belajar Bekerja Kolaboratif}
+
+Dalam proyek kolaboratif, penting untuk mengetahui cara bekerja dengan orang lain secara efektif menggunakan Git dan GitHub. Bab ini mencakup konsep dan praktik kunci untuk kolaborasi, termasuk memfork repository, mengkloning repository, membuat pull request, dan mengelola penggabungan.
+
+\section{Memfork Repository}
+
+Memfork sebuah repository memungkinkan pengguna untuk membuat salinan pribadi dari proyek orang lain. Hal ini memungkinkan eksperimen dan modifikasi tanpa mempengaruhi proyek asli. Untuk memfork sebuah repository:
+
+\begin{enumerate}
+	\item Arahkan ke repository GitHub yang ingin difork.
+	\item Klik tombol \texttt{Fork} di bagian kanan atas halaman.
+	\item Pilih akun sebagai tujuan untuk repository yang difork.
+\end{enumerate}
+
+Setelah repository difork, salinan baru dibuat di bawah akun GitHub, yang dapat dikloning dan dimodifikasi secara independen.
+
+\section{Mengkloning Repository}
+
+Mengkloning repository memungkinkan pengguna untuk mengunduh salinan repository ke mesin lokal. Ini dapat dilakukan menggunakan perintah berikut di terminal:
+
+\begin{lstlisting}[language=bash]
+	git clone <repository-url>
+\end{lstlisting}
+
+Gantilah \texttt{<repository-url>} dengan URL dari repository yang difork atau asli. Perintah ini membuat salinan lokal, memungkinkan pengguna bekerja secara offline.
+
+\section{Membuat Pull Request}
+
+Setelah melakukan perubahan pada repository yang dikloning, langkah berikutnya adalah mengirimkan perubahan tersebut untuk ditinjau. Ini dilakukan dengan membuat pull request:
+
+\begin{enumerate}
+	\item Dorong perubahan ke repository yang difork menggunakan:
+	\begin{lstlisting}[language=bash]
+		git push origin <branch-name>
+	\end{lstlisting}
+	\item Buka repository asli di GitHub.
+	\item Klik pada tab \texttt{Pull requests}.
+	\item Klik tombol \texttt{New pull request}.
+	\item Pilih cabang dan berikan deskripsi tentang perubahan yang dilakukan.
+	\item Klik \texttt{Create pull request}.
+\end{enumerate}
+
+Pull request memfasilitasi diskusi dan tinjauan perubahan sebelum digabungkan ke dalam proyek utama.
+
+\section{Mengambil dan Mengirim Perubahan di GitHub}
+
+Untuk menyinkronkan perubahan antara repository lokal dan repository jarak jauh di GitHub, gunakan perintah berikut:
+
+\begin{itemize}
+	\item Untuk mengambil perubahan terbaru dari repository jarak jauh:
+	\begin{lstlisting}[language=bash]
+		git pull origin <branch-name>
+	\end{lstlisting}
+	\item Untuk mengirim perubahan lokal ke repository jarak jauh:
+	\begin{lstlisting}[language=bash]
+		git push origin <branch-name>
+	\end{lstlisting}
+\end{itemize}
+
+Perintah ini memastikan bahwa semua kontributor bekerja dengan versi kode yang paling mutakhir.
+
+\section{Menyelesaikan Konflik Penggabungan}
+
+Ketika beberapa kontributor melakukan perubahan pada bagian yang sama dari sebuah file, konflik penggabungan dapat terjadi. Untuk menyelesaikan konflik penggabungan:
+
+\begin{enumerate}
+	\item Ambil perubahan terbaru dari repository jarak jauh.
+	\item Jika terjadi konflik, Git akan menandai file yang konflik.
+	\item Buka file yang konflik dan cari penanda konflik (misalnya, \texttt{<<<<<<< HEAD}).
+	\item Edit file secara manual untuk menyelesaikan konflik.
+	\item Setelah menyelesaikan konflik, siapkan perubahan:
+	\begin{lstlisting}[language=bash]
+		git add <resolved-file>
+	\end{lstlisting}
+	\item Komit perubahan yang telah diselesaikan:
+	\begin{lstlisting}[language=bash]
+		git commit -m "Resolved merge conflict"
+	\end{lstlisting}
+\end{enumerate}
+
+Dengan mengikuti langkah-langkah ini, kontributor dapat mengelola dan menyelesaikan konflik penggabungan secara efektif dalam proyek kolaboratif.
+

@@ -1,0 +1,53 @@
+\chapter{Penggunaan Git Dasar}
+
+\section{Git Init: Menginisialisasi Repository}
+Perintah \texttt{git init} digunakan untuk menginisialisasi repository Git baru. Perintah ini akan membuat direktori \texttt{.git} di dalam folder proyek, yang akan menyimpan semua metadata dan riwayat version control.
+\begin{lstlisting}[language=bash]
+	git init
+\end{lstlisting}
+Setelah perintah ini dijalankan, folder proyek sekarang menjadi repository Git dan siap untuk melacak perubahan.
+
+\section{Git Add: Menambahkan Perubahan ke Staging}
+Perintah \texttt{git add} digunakan untuk menambahkan perubahan pada file ke area staging, yaitu tahap sebelum perubahan tersebut dikomit ke repository. File individu atau semua file yang telah diubah bisa ditambahkan sekaligus.
+\begin{lstlisting}[language=bash]
+	git add <nama_file>
+	git add .
+\end{lstlisting}
+Menggunakan \texttt{git add .} akan menambahkan semua file yang berubah ke staging.
+
+\section{Git Commit: Mengkomit Perubahan}
+Setelah perubahan ditambahkan ke area staging, perintah \texttt{git commit} digunakan untuk mengunci perubahan ke dalam repository. Setiap \texttt{commit} memerlukan pesan yang menjelaskan perubahan yang dilakukan.
+\begin{lstlisting}[language=bash]
+	git commit -m "Deskripsi perubahan"
+\end{lstlisting}
+Pesan commit harus jelas dan menjelaskan apa yang telah diubah untuk memudahkan pelacakan riwayat perubahan.
+
+\section{Git Reset: Menghapus Perubahan dari Staging}
+Jika ingin membatalkan perubahan yang telah ditambahkan ke staging tanpa mengubah file yang sebenarnya, gunakan perintah \texttt{git reset}.
+\begin{lstlisting}[language=bash]
+	git reset <nama_file>
+\end{lstlisting}
+Perintah ini akan menghapus file dari staging, namun perubahan pada file tetap ada. Untuk membatalkan perubahan pada file itu sendiri, gunakan \texttt{git checkout}.
+
+\section{Penggunaan File .gitignore}
+File \texttt{.gitignore} digunakan untuk menentukan file atau direktori mana yang tidak ingin dilacak di dalam repository Git. Pola atau nama file yang tidak akan ditambahkan ke staging meskipun diubah bisa ditentukan.
+\begin{lstlisting}[language=bash]
+	# Contoh file .gitignore
+	node_modules/
+	*.log
+	*.tmp
+\end{lstlisting}
+Dengan menambahkan pola file ke \texttt{.gitignore}, Git akan mengabaikan file-file tersebut.
+
+\section{Membuat dan Menggabungkan Branch}
+Git memungkinkan pekerjaan pada berbagai fitur atau perbaikan secara terpisah menggunakan \textit{branch}. Perintah \texttt{git branch} digunakan untuk membuat cabang baru, dan \texttt{git checkout} untuk berpindah ke cabang tersebut.
+\begin{lstlisting}[language=bash]
+	git branch <nama_branch>
+	git checkout <nama_branch>
+\end{lstlisting}
+Setelah perubahan selesai, cabang tersebut bisa digabungkan ke dalam cabang utama (\texttt{main} atau \texttt{master}) menggunakan perintah \texttt{git merge}.
+\begin{lstlisting}[language=bash]
+	git checkout main
+	git merge <nama_branch>
+\end{lstlisting}
+Proses ini akan menggabungkan perubahan yang dilakukan pada cabang lain ke dalam cabang utama.

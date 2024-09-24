@@ -1,0 +1,114 @@
+\documentclass{book}
+
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage{cite} % for IEEE-style citations
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{afterpage}
+
+\renewcommand{\contentsname}{Daftar Isi}
+\renewcommand{\chaptername}{Bab}
+
+
+
+\lstdefinelanguage{bash} {
+	keywords={},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={},
+	ndkeywordstyle=\color{purple}\bfseries,
+	sensitive=true,
+	commentstyle=\color{gray},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{lightgray!10},
+	tabsize=2,
+	comment=[l]{\#},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{purple}\ttfamily,
+	showstringspaces=false
+}
+
+% Define Java language style for listings
+\lstdefinestyle{java}{
+	language=Java,
+	basicstyle=\ttfamily\footnotesize,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{red},
+	breaklines=true,
+	showstringspaces=false,
+	tabsize=2,
+	captionpos=b,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	frame=lines,
+	backgroundcolor=\color{lightgray!10},
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	string=[s]{'}{'},
+	morestring=[s]{"}{"},
+	%	stringstyle=\color{teal}\ttfamily,
+	%	showstringspaces=false
+}
+
+
+\begin{document}
+	
+	\begin{titlepage}
+		\pagecolor[rgb]{0.800, 1, 0.800}
+		\centering
+		\vspace*{1cm}
+		
+		\Huge
+		\textbf{Lokakarya GIT}
+		
+		\vspace{0.5cm}
+			
+		\LARGE
+		Universitas Pradita
+		
+		\vspace{1.5cm}
+		
+		\textit{Powered by ChatGPT}
+		
+		\vspace{2cm}
+		
+		\textbf{Alfa Yohannis}
+		
+		\vspace{0.8cm}
+		
+		\today
+		
+				\vfill
+		
+				% Example of centering an image
+		\begin{center}
+			\includegraphics[width=0.3\textwidth]{images/logo_universitas}
+		\end{center}
+		
+
+	\end{titlepage}
+
+	 \afterpage{\nopagecolor}
+	
+	% Contents Page
+	\tableofcontents
+	
+	\include{chapter-01.tex}
+	\include{chapter-02.tex}
+	\include{chapter-03.tex}
+	\include{chapter-04.tex}
+	\include{chapter-05.tex}
+	\include{chapter-06.tex}
+	\include{chapter-07.tex}
+	\include{chapter-08.tex}
+	
+\end{document}

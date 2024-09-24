@@ -1,0 +1,47 @@
+\chapter{Praktik Terbaik dalam Menggunakan GitHub}
+
+Menggunakan GitHub secara efektif tidak hanya melibatkan penguasaan perintah Git, tetapi juga menerapkan praktik terbaik untuk menjaga repository tetap bersih dan terorganisir. Berikut adalah beberapa praktik terbaik yang disarankan:
+
+\section{Hindari Mengunggah File Binary Target}
+File binary target, seperti file hasil kompilasi atau file executable, sebaiknya tidak diunggah ke repository. Ini karena file tersebut dapat dengan cepat membesar dan tidak perlu dilacak di dalam version control. Sebagai gantinya, cukup simpan kode sumbernya dan biarkan setiap pengguna melakukan kompilasi pada mesin masing-masing.
+
+\section{Hindari File Binary Berukuran Besar}
+File binary yang berukuran besar, seperti gambar, video, atau file media lainnya, sebaiknya dihindari dalam repository Git. Gunakan platform penyimpanan eksternal seperti Git LFS (Large File Storage) atau layanan penyimpanan awan untuk menyimpan file-file tersebut. Ini akan membantu menjaga ukuran repository tetap kecil dan mudah dikelola.
+
+\section{Hindari File Temporary}
+File sementara yang dihasilkan selama proses pengembangan, seperti file log, file cache, atau file konfigurasi lokal, sebaiknya tidak diunggah ke repository. Gunakan file \texttt{.gitignore} untuk mengabaikan file-file ini agar tidak termasuk dalam version control.
+\begin{lstlisting}[language=bash]
+	# Contoh isi .gitignore
+	*.log
+	*.tmp
+	*.cache
+\end{lstlisting}
+
+\section{Tulis Pesan \textit{Commit} yang Jelas}
+Pesan commit yang jelas dan deskriptif sangat penting untuk memudahkan pengembang lain memahami perubahan yang dilakukan. Gunakan kalimat yang menjelaskan apa yang diubah dan mengapa. Contoh:
+\begin{lstlisting}[language=bash]
+	git commit -m "Memperbaiki bug pada fungsi login dan menambahkan validasi input"
+\end{lstlisting}
+
+\section{Gunakan Branch untuk Fitur Baru dan Perbaikan}
+Selalu buat branch baru untuk mengembangkan fitur baru atau melakukan perbaikan. Ini akan menjaga cabang utama tetap stabil dan menghindari konflik yang tidak perlu.
+\begin{lstlisting}[language=bash]
+	git checkout -b nama_fitur_baru
+\end{lstlisting}
+
+\section{Jaga \textit{Commit} yang Kecil dan Sering}
+Commit yang kecil dan sering lebih mudah dikelola dan ditelusuri daripada komitmen yang besar dan jarang. Hal ini juga memudahkan pengembalian perubahan jika terjadi kesalahan.
+
+\section{Perbarui \texttt{README.md} Secara Berkala}
+File \texttt{README.md} merupakan dokumen penting yang menjelaskan proyek. Pastikan informasi di dalamnya selalu diperbarui, termasuk petunjuk instalasi, penggunaan, dan dokumentasi lainnya.
+
+\section{Gunakan Pull Request untuk Kolaborasi}
+Saat bekerja dalam tim, gunakan fitur pull request untuk mengusulkan perubahan. Ini memfasilitasi diskusi dan tinjauan sebelum perubahan diterapkan ke cabang utama.
+
+\section{Bersihkan Repository Secara Berkala}
+Lakukan pemeriksaan rutin pada repository untuk menghapus file yang tidak diperlukan dan memperbaiki masalah. Ini termasuk menghapus branch yang sudah tidak digunakan dan memperbarui file \texttt{.gitignore}.
+
+\section{Patuhi Konvensi Penamaan}
+Gunakan konvensi penamaan yang konsisten untuk branch, commit, dan file. Ini akan memudahkan pengembang lain memahami struktur dan tujuan dari setiap elemen di dalam repository.
+
+Dengan mengikuti praktik terbaik ini, penggunaan GitHub akan lebih efektif dan kolaborasi dalam proyek dapat berjalan lebih lancar.
